@@ -1,0 +1,20 @@
+process_names:
+  # Match Docker containers, grouped by cgroups
+  - name: "docker-container-{{.Cgroups.container_name}}"
+    cgroups:
+      - "/docker"
+
+  # Match Nextflow processes using cmdline
+  - name: "nextflow"
+    cmdline:
+      - ".*nextflow.*"
+
+  # Match Prometheus process by executable name
+  - name: "prometheus"
+    exe:
+      - "prometheus"
+
+  # Catch-all for processes with valid command names
+  - name: "all-processes"
+    comm:
+      - ".+"
